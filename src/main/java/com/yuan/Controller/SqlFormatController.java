@@ -23,17 +23,6 @@ public class SqlFormatController {
     @PostMapping("/transfer")
     @ResponseBody
     public String transfer(@RequestBody Map<String, String> sqlMap) {
-        StringBuilder sb = new StringBuilder();
-        String sql = sqlMap.get("sql");
-        String[] rows = sql.split("\n");
-
-        sb.append("new StringBuilder(\" "+rows[0]+" \")\n");
-        if (rows != null) {
-            Arrays.stream(rows)
-                    .filter(StringUtils::isNotBlank)
-                    .skip(1)
-                    .forEach(row ->sb.append("               .append(\" "+row+" \")\n"));
-        }
-        return sb.toString();
+        return  sqlFormatService.transfer(sqlMap.get("sql"));
     }
 }
